@@ -262,7 +262,7 @@ do
 
                     # Run the setup routine; if `before` wasn't redefined, then
                     # this is `:`.
-                    before
+                    before "$roundup_test_name"
 
                     # Similarly to above, momentarily turn off auto-fail, so
                     # that we can have the tear-down function run even if the
@@ -281,7 +281,7 @@ do
 
                     # Run the tear-down routine; if `after` wasn't redefined,
                     # then this is `:`.
-                    after
+                    after "$roundup_test_name"
 
                     # Report the result of the test.
                     exit $roundup_status
