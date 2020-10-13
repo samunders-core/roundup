@@ -201,7 +201,7 @@ do
     (
         # Consider the description to be the `basename` of the plan minus the
         # tailing -test.sh.
-        roundup_desc=$(basename "$roundup_p" -test.sh)
+        roundup_desc=$(basename "${roundup_p%-test.sh*}")
 
         # Define functions for
         # [roundup(5)][r5]
@@ -222,16 +222,17 @@ do
         # This is done before populating the sandbox with tests to avoid odd
         # conflicts.
 
+        roundup_plan=${roundup_p##-test.sh/}
         # TODO:  I want to do this with sed only.  Please send a patch if you
         # know a cleaner way.
-        roundup_plan=$(
-            grep "^it_.*()" $roundup_p           |
+        [ -z "$roundup_plan" ] && roundup_plan=$(
+            grep "^it_.*()" ${roundup_p/-test.sh*/-test.sh}           |
             sed "s/\(it_[a-zA-Z0-9_]*\).*$/\1/g"
         )
 
         # We have the test plan and are in our sandbox with [roundup(5)][r5]
         # defined.  Now we source the plan to bring its tests into scope.
-        . ./$roundup_p
+        . ./${roundup_p/-test.sh*/-test.sh}
 
         # Output the description signal
         printf "d %s" "$roundup_desc" | tr "\n" " "
