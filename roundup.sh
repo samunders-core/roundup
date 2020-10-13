@@ -225,7 +225,7 @@ do
         roundup_plan=${roundup_p##-test.sh/}
         # TODO:  I want to do this with sed only.  Please send a patch if you
         # know a cleaner way.
-        [ -z "$roundup_plan" ] && roundup_plan=$(
+        [ "$roundup_plan" = "${roundup_plan#it_}" ] && roundup_plan=$(
             grep "^it_.*()" ${roundup_p/-test.sh*/-test.sh}           |
             sed "s/\(it_[a-zA-Z0-9_]*\).*$/\1/g"
         )
