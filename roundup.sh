@@ -222,7 +222,7 @@ do
         # This is done before populating the sandbox with tests to avoid odd
         # conflicts.
 
-        roundup_plan=${roundup_p##-test.sh/}
+        roundup_plan=${roundup_p##*-test.sh/}
         # TODO:  I want to do this with sed only.  Please send a patch if you
         # know a cleaner way.
         [ "$roundup_plan" = "${roundup_plan#it_}" ] && roundup_plan=$(
